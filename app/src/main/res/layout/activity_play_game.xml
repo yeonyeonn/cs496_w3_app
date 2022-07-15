@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PlayGame">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="timer"/>
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ball1"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_marginLeft="30dp"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/ball1" />
+
+    <ImageView
+        android:id="@+id/ball2"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_marginLeft="154dp"
+        android:src="@drawable/ball2"
+        android:layout_alignParentBottom="true"/>
+
+    <ImageView
+        android:id="@+id/ball3"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_marginLeft="258dp"
+        android:src="@drawable/ball3"
+        android:layout_alignParentBottom="true"/>
+
+    <ImageView
+        android:id="@+id/ball4"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_marginLeft="312dp"
+        android:src="@drawable/ball1"
+        android:layout_alignParentBottom="true"/>
+
+
+
+
+</RelativeLayout>

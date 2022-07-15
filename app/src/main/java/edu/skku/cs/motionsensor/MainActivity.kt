@@ -11,15 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.DisplayMetrics
 import android.util.Log
-import android.widget.TextView
+import android.widget.ImageView
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.*
-import java.util.*
-import kotlin.concurrent.thread
-import kotlin.concurrent.timer
-import kotlin.math.abs
-import kotlin.math.pow
+import render.animations.*
 import kotlin.math.sqrt
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
@@ -35,14 +31,18 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var accelLast: Float = 0.0f
     var num : Int = 0
     var movestatus = false
+//    lateinit var ball1: ImageView
+//    lateinit var ball2: ImageView
+//    lateinit var ball3: ImageView
+//    lateinit var ball4: ImageView
+//    lateinit var ball5: ImageView
+//    lateinit var ball6: ImageView
+//    lateinit var ball7: ImageView
+//    lateinit var ball8: ImageView
+
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        // 길이를 세로 모드로 고정
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         Log.d(TAG, "MainActivity - onCreate() called")
 
@@ -51,6 +51,51 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         accel = 10f
         accelCurrent = SensorManager.GRAVITY_EARTH
         accelLast = SensorManager.GRAVITY_EARTH
+
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        fun Int.dpToPx(displayMetrics: DisplayMetrics): Int = (this * displayMetrics.density).toInt()
+        fun Int.pxToDp(displayMetrics: DisplayMetrics): Int = (this / displayMetrics.density).toInt()
+
+//        ball1 = findViewById<ImageView>(R.id.ball1)
+//        ball2 = findViewById(R.id.ball2)
+//        ball3 = findViewById(R.id.ball3)
+//        ball4 = findViewById(R.id.ball4)
+//        ball5 = findViewById(R.id.ball5)
+//        ball6 = findViewById(R.id.ball6)
+//        ball7 = findViewById(R.id.ball7)
+//        ball8 = findViewById(R.id.ball8)
+//        val ball3 : ImageView = findViewById(R.id.ball3)
+//        val ball4 : ImageView = findViewById(R.id.ball4)
+//        val ball5 : ImageView = findViewById(R.id.ball5)
+//        val ball6 : ImageView = findViewById(R.id.ball6)
+
+        val render = Render(this)
+        render.setAnimation(Attention().Shake(ball1))
+        render.start()
+        render.setAnimation(Attention().Shake(ball2))
+        render.start()
+        render.setAnimation(Attention().Shake(ball3))
+        render.start()
+        render.setAnimation(Attention().Shake(ball4))
+        render.start()
+        render.setAnimation(Attention().Shake(ball5))
+        render.start()
+        render.setAnimation(Attention().Shake(ball6))
+        render.start()
+        render.setAnimation(Attention().Shake(ball7))
+        render.start()
+        render.setAnimation(Bounce().InDown(ball8))
+        render.start()
+
+        render.start()
+
+        // 길이를 세로 모드로 고정
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
+
+
 
     }
 
@@ -66,10 +111,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         val y: Float = event?.values?.get(1) as Float
         val z: Float = event?.values?.get(2) as Float
 
-        //
-        x_text.text = "X: " + x.toInt().toString()
-        y_text.text = "Y: " + y.toInt().toString()
-        z_text.text = "Z: " + z.toInt().toString()
+//        //
+//        x_text.text = "X: " + x.toInt().toString()
+//        y_text.text = "Y: " + y.toInt().toString()
+//        z_text.text = "Z: " + z.toInt().toString()
 
         accelLast = accelCurrent
 
