@@ -26,8 +26,8 @@
         android:id="@+id/ball1"
         android:layout_width="104dp"
         android:layout_height="104dp"
-        android:layout_marginLeft="30dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginLeft="30dp"
         android:src="@drawable/ball1" />
 
     <ImageView
@@ -132,11 +132,53 @@
         android:layout_width="104dp"
         android:layout_height="104dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="230dp"
-        android:layout_marginBottom="325dp"
+        android:layout_marginLeft="223dp"
+        android:layout_marginBottom="322dp"
         android:src="@drawable/ball1" />
 
+    <ImageView
+        android:id="@+id/ball14"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="162dp"
+        android:layout_marginBottom="405dp"
+        android:src="@drawable/ball3" />
 
+    <ImageView
+        android:id="@+id/ball15"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="405dp"
+        android:src="@drawable/ball3" />
+
+    <ImageView
+        android:id="@+id/ball16"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="260dp"
+        android:layout_marginBottom="430dp"
+        android:src="@drawable/ball2" />
+
+    <ImageView
+        android:id="@+id/ball17"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="81dp"
+        android:layout_marginBottom="470dp"
+        android:src="@drawable/ball1" />
+
+    <ImageView
+        android:id="@+id/ball18"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="190dp"
+        android:layout_marginBottom="505dp"
+        android:src="@drawable/ball3" />
 
 
 </RelativeLayout>

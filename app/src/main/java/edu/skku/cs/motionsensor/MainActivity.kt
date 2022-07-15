@@ -2,6 +2,7 @@ package edu.skku.cs.motionsensor
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -58,6 +59,11 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         fun Int.dpToPx(displayMetrics: DisplayMetrics): Int = (this * displayMetrics.density).toInt()
         fun Int.pxToDp(displayMetrics: DisplayMetrics): Int = (this / displayMetrics.density).toInt()
 
+        ball1.setOnClickListener{
+            val intent = Intent(this, Loading::class.java)
+            startActivity(intent)
+        }
+
 //        ball1 = findViewById<ImageView>(R.id.ball1)
 //        ball2 = findViewById(R.id.ball2)
 //        ball3 = findViewById(R.id.ball3)
@@ -93,8 +99,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         // 길이를 세로 모드로 고정
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-
-
 
 
     }
