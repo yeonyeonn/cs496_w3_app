@@ -9,10 +9,14 @@ import android.hardware.SensorManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import edu.skku.cs.motionsensor.databinding.ActivityMainBinding
+import io.socket.client.IO
+import io.socket.client.Socket
 import java.util.*
 import kotlin.random.Random
 import kotlin.random.Random.Default.nextInt
@@ -38,6 +42,12 @@ class Loading : AppCompatActivity(), SensorEventListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         //setContentView(binding.root)
         setContentView(R.layout.activity_loading)
+
+        // 소켓 접속
+        var mSocket: Socket = IO.socket("http://192.249.18.153:443")
+        mSocket.connect()
+
+
         initSensorManager()
         initTouchListener()
     }
