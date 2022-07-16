@@ -2,6 +2,7 @@ package edu.skku.cs.motionsensor
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -17,6 +18,8 @@ import android.widget.LinearLayout
 import edu.skku.cs.motionsensor.databinding.ActivityMainBinding
 import io.socket.client.IO
 import io.socket.client.Socket
+import io.socket.emitter.Emitter
+import org.json.JSONObject
 import java.util.*
 import kotlin.random.Random
 import kotlin.random.Random.Default.nextInt
@@ -43,13 +46,35 @@ class Loading : AppCompatActivity(), SensorEventListener {
         //setContentView(binding.root)
         setContentView(R.layout.activity_loading)
 
+        initSensorManager()
+        initTouchListener()
+
         // 소켓 접속
         var mSocket: Socket = IO.socket("http://192.249.18.153:443")
         mSocket.connect()
 
+        var clickButton = findViewById<Button>(R.id.clickButton)
+        clickButton.setOnClickListener {
+            val intent = Intent(this, PlayGame::class.java)
+            startActivity(intent)
+        }
 
-        initSensorManager()
-        initTouchListener()
+        mSocket.emit("message", "hello")
+        Log.d("here", "here")
+
+        mSocket.on("message", Emitter.Listener { args ->
+            runOnUiThread {
+                Log.d("data", ""+ args[0])
+                val data = args[0]
+//                val name = data.getString("name")
+//                val text = data.getString("text")
+//                val time = data.getString("time")
+//                val key_id = data.getString("key_id")
+                Log.d("data", "data")
+            }
+        })
+
+
     }
 
     private fun initSensorManager() {

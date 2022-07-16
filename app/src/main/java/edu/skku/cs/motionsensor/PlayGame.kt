@@ -63,11 +63,6 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
         fun Int.dpToPx(displayMetrics: DisplayMetrics): Int = (this * displayMetrics.density).toInt()
         fun Int.pxToDp(displayMetrics: DisplayMetrics): Int = (this / displayMetrics.density).toInt()
 
-        ball1.setOnClickListener{
-            val intent = Intent(this, Loading::class.java)
-            startActivity(intent)
-        }
-
 //        ball1 = findViewById<ImageView>(R.id.ball1)
 //        ball2 = findViewById(R.id.ball2)
 //        ball3 = findViewById(R.id.ball3)

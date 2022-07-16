@@ -13,4 +13,11 @@
         android:layout_gravity="center"
         android:gravity="center_horizontal"/>
 
+    <Button
+        android:id="@+id/clickButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="click"/>
+
 </LinearLayout>
