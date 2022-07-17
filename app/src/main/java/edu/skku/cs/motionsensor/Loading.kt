@@ -15,10 +15,14 @@ import android.view.MotionEvent
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import edu.skku.cs.motionsensor.databinding.ActivityLoadingBinding
 import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
+import kotlinx.android.synthetic.main.activity_loading.*
 import org.json.JSONObject
 import java.util.*
 import kotlin.random.Random
@@ -50,6 +54,9 @@ class Loading : AppCompatActivity(), SensorEventListener {
 
         initSensorManager()
         initTouchListener()
+
+        var loadingTextView = findViewById<TextView>(R.id.loadingTextView)
+        YoYo.with(Techniques.BounceInUp).duration(3000).repeat(50).playOn(loadingTextView)
 
 
         // 소켓 접속

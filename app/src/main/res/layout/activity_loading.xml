@@ -4,14 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Loading">
+    tools:context=".Loading"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="loading"
-        android:layout_gravity="center"
-        android:gravity="center_horizontal"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/loadingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="120dp"
+            android:gravity="center_vertical"
+            android:text="Loading"
+            android:textColor="@color/black"
+            android:textSize="40dp" />
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="80dp"
+            android:src="@drawable/bubble"/>
+
+    </FrameLayout>
 
     <Button
         android:id="@+id/clickButton"
@@ -19,5 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="click"/>
+
+
 
 </LinearLayout>
