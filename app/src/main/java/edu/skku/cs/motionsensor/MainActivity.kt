@@ -50,28 +50,31 @@ class MainActivity : AppCompatActivity() {
 
         button.setOnClickListener {
             Log.d("clicked", editText.text.toString())
-            val url = "http://192.249.18.153:80/login"
-            val request = object : StringRequest(
-                Request.Method.GET,
-                url, {
-                    text_from_server = it
-                    Log.d("text_from_server", text_from_server)
+            val intent = Intent(this, Loading::class.java)
+            startActivity(intent)
 
-                    if (text_from_server == editText.text.toString()) {
-                        Toast.makeText(this@MainActivity, "연결에 성공했습니다!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, Loading::class.java)
-                        startActivity(intent)
-                    } else {
-                        Toast.makeText(this@MainActivity, "코드를 확인해주세요!", Toast.LENGTH_SHORT).show()
-                    }
-                }, {
-                    Log.d("error", "" + it)
-                }
-            ) {
-
-            }
-            request.setShouldCache(false)
-            requestQueue?.add(request)
+//            val url = "http://192.249.18.153:80/login"
+//            val request = object : StringRequest(
+//                Request.Method.GET,
+//                url, {
+//                    text_from_server = it
+//                    Log.d("text_from_server", text_from_server)
+//
+//                    if (text_from_server == editText.text.toString()) {
+//                        Toast.makeText(this@MainActivity, "연결에 성공했습니다!", Toast.LENGTH_SHORT).show()
+//                        val intent = Intent(this, Loading::class.java)
+//                        startActivity(intent)
+//                    } else {
+//                        Toast.makeText(this@MainActivity, "코드를 확인해주세요!", Toast.LENGTH_SHORT).show()
+//                    }
+//                }, {
+//                    Log.d("error", "" + it)
+//                }
+//            ) {
+//
+//            }
+//            request.setShouldCache(false)
+//            requestQueue?.add(request)
         }
     }
 }

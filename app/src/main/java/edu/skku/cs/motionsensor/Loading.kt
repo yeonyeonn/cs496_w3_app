@@ -15,7 +15,7 @@ import android.view.MotionEvent
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
-import edu.skku.cs.motionsensor.databinding.ActivityMainBinding
+import edu.skku.cs.motionsensor.databinding.ActivityLoadingBinding
 import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
@@ -25,7 +25,9 @@ import kotlin.random.Random
 import kotlin.random.Random.Default.nextInt
 
 class Loading : AppCompatActivity(), SensorEventListener {
-    private lateinit var binding: ActivityMainBinding
+
+    // 각 액티비티 이름을 딴 binding이 있다
+    private lateinit var binding: ActivityLoadingBinding
 
     private lateinit var sensorManager: SensorManager
     private var accelerometerSensor: Sensor? = null
@@ -42,37 +44,43 @@ class Loading : AppCompatActivity(), SensorEventListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        //setContentView(binding.root)
-        setContentView(R.layout.activity_loading)
+
+        binding = ActivityLoadingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         initSensorManager()
         initTouchListener()
 
-        // 소켓 접속
-        var mSocket: Socket = IO.socket("http://192.249.18.153:443")
-        mSocket.connect()
 
-        var clickButton = findViewById<Button>(R.id.clickButton)
+        // 소켓 접속
+//        var mSocket: Socket = IO.socket("http://192.249.18.153:443")
+//        mSocket.connect()
+//
+//        // 서버가 앱에게 시작 사인 주는 걸 받는 코드, 사인 받으면 게임 진행 액티비티로 전환
+//        mSocket.on("startgame", Emitter.Listener { args ->
+//            runOnUiThread {
+//                Log.d("start", "start")
+//                val intent = Intent(this, PlayGame::class.java)
+//                startActivity(intent)
+//            }
+//        })
+
+   var clickButton = findViewById<Button>(R.id.clickButton)
         clickButton.setOnClickListener {
             val intent = Intent(this, PlayGame::class.java)
             startActivity(intent)
-        }
-
-        mSocket.emit("message", "hello")
-        Log.d("here", "here")
-
-        mSocket.on("message", Emitter.Listener { args ->
-            runOnUiThread {
-                Log.d("data", ""+ args[0])
-                val data = args[0]
-//                val name = data.getString("name")
-//                val text = data.getString("text")
-//                val time = data.getString("time")
-//                val key_id = data.getString("key_id")
-                Log.d("data", "data")
-            }
-        })
+      }
+//
+//        mSocket.emit("message", "hello")
+//        Log.d("here", "here")
+//
+//        mSocket.on("message", Emitter.Listener { args ->
+//            runOnUiThread {
+//                Log.d("data", ""+ args[0])
+//                val data = args[0]
+//                Log.d("data", "data")
+//            }
+//        })
 
 
     }
@@ -84,6 +92,7 @@ class Loading : AppCompatActivity(), SensorEventListener {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initTouchListener() {
+
         binding.root.setOnTouchListener { _, event ->
             when (event.actionMasked) {
                 MotionEvent.ACTION_DOWN -> {
@@ -99,6 +108,7 @@ class Loading : AppCompatActivity(), SensorEventListener {
 
     private fun addTomatoView(touchedX: Float, touchedY: Float) {
         val tomato = ImageView(this).apply {
+            Log.d("add", "add")
             setBackgroundResource(randomImageRes.random())
             layoutParams = LinearLayout.LayoutParams(TOMATO_SIZE, TOMATO_SIZE)
             /**

@@ -63,6 +63,11 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
         fun Int.dpToPx(displayMetrics: DisplayMetrics): Int = (this * displayMetrics.density).toInt()
         fun Int.pxToDp(displayMetrics: DisplayMetrics): Int = (this / displayMetrics.density).toInt()
 
+        var mSocket: Socket = io.socket.client.IO.socket("http://192.249.18.153:443")
+        mSocket.connect()
+
+
+
 //        ball1 = findViewById<ImageView>(R.id.ball1)
 //        ball2 = findViewById(R.id.ball2)
 //        ball3 = findViewById(R.id.ball3)
