@@ -14,13 +14,17 @@ import android.os.Handler
 import android.os.Looper
 import android.util.DisplayMetrics
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_play_game.*
 import kotlinx.coroutines.Dispatchers.IO
 import render.animations.*
 import io.socket.client.IO
 import io.socket.client.Socket
+import io.socket.emitter.Emitter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -45,16 +49,7 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
     var z: Float = 0.0f
     var delta: Float = 0.0f
     var moved: Float = 0.0f
-
-//    lateinit var ball1: ImageView
-//    lateinit var ball2: ImageView
-//    lateinit var ball3: ImageView
-//    lateinit var ball4: ImageView
-//    lateinit var ball5: ImageView
-//    lateinit var ball6: ImageView
-//    lateinit var ball7: ImageView
-//    lateinit var ball8: ImageView
-
+    lateinit var tomatoVisibleList: ArrayList<ImageView>
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,51 +65,90 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play_game)
 
+        val tomatoList = arrayListOf<ImageView>(
+            findViewById<ImageView>(R.id.ball1),
+            findViewById<ImageView>(R.id.ball2),
+            findViewById<ImageView>(R.id.ball3),
+            findViewById<ImageView>(R.id.ball4),
+            findViewById<ImageView>(R.id.ball5),
+            findViewById<ImageView>(R.id.ball6),
+            findViewById<ImageView>(R.id.ball7),
+            findViewById<ImageView>(R.id.ball8),
+            findViewById<ImageView>(R.id.ball9),
+            findViewById<ImageView>(R.id.ball10),
+            findViewById<ImageView>(R.id.ball11),
+            findViewById<ImageView>(R.id.ball12),
+            findViewById<ImageView>(R.id.ball13),
+            findViewById<ImageView>(R.id.ball14),
+            findViewById<ImageView>(R.id.ball15),
+            findViewById<ImageView>(R.id.ball16),
+            findViewById<ImageView>(R.id.ball17),
+            findViewById<ImageView>(R.id.ball18),
+            findViewById<ImageView>(R.id.ball19),
+            findViewById<ImageView>(R.id.ball20),
+
+            )
+
+        tomatoVisibleList = arrayListOf<ImageView>()
+
         fun Int.dpToPx(displayMetrics: DisplayMetrics): Int = (this * displayMetrics.density).toInt()
         fun Int.pxToDp(displayMetrics: DisplayMetrics): Int = (this / displayMetrics.density).toInt()
 
-        var mSocket: Socket = io.socket.client.IO.socket("http://192.249.18.153:443")
-        mSocket.connect()
+        var mSocket = SocketHandler.getSocket()
 
+        var new = tomatoList.get(tomatoVisibleList.size)
+        tomatoVisibleList.add(new)
+        new.visibility = View.VISIBLE
+        getNumTextView.text = "" + tomatoVisibleList.size + " / 20"
 
+        var new2 = tomatoList.get(tomatoVisibleList.size)
+        tomatoVisibleList.add(new2)
+        new2.visibility = View.VISIBLE
+        getNumTextView.text = "" + tomatoVisibleList.size + " / 20"
 
-//        ball1 = findViewById<ImageView>(R.id.ball1)
-//        ball2 = findViewById(R.id.ball2)
-//        ball3 = findViewById(R.id.ball3)
-//        ball4 = findViewById(R.id.ball4)
-//        ball5 = findViewById(R.id.ball5)
-//        ball6 = findViewById(R.id.ball6)
-//        ball7 = findViewById(R.id.ball7)
-//        ball8 = findViewById(R.id.ball8)
-//        val ball3 : ImageView = findViewById(R.id.ball3)
-//        val ball4 : ImageView = findViewById(R.id.ball4)
-//        val ball5 : ImageView = findViewById(R.id.ball5)
-//        val ball6 : ImageView = findViewById(R.id.ball6)
+        var new3 = tomatoList.get(tomatoVisibleList.size)
+        tomatoVisibleList.add(new3)
+        new3.visibility = View.VISIBLE
+        getNumTextView.text = "" + tomatoVisibleList.size + " / 20"
 
-        val render = Render(this)
-        render.setAnimation(Attention().Shake(ball1))
-        render.start()
-        render.setAnimation(Attention().Shake(ball2))
-        render.start()
-        render.setAnimation(Attention().Shake(ball3))
-        render.start()
-        render.setAnimation(Attention().Shake(ball4))
-        render.start()
-        render.setAnimation(Attention().Shake(ball5))
-        render.start()
-        render.setAnimation(Attention().Shake(ball6))
-        render.start()
-        render.setAnimation(Attention().Shake(ball7))
-        render.start()
-        render.setAnimation(Bounce().InDown(ball8))
-        render.start()
+        // get tomato socket
+        mSocket.on("getTomato", Emitter.Listener { args ->
+            runOnUiThread {
+                Log.d("getTomato", "" + args)
+                var new = tomatoList.get(tomatoVisibleList.size)
+                tomatoVisibleList.add(new)
+                new.visibility = View.VISIBLE
+                getNumTextView.text = "" + tomatoVisibleList.size + " / 20"
+            }
+        })
 
-        render.start()
+        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball1)
+        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball2)
+        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball3)
+        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball4)
+        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball5)
+        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball6)
+        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball7)
+        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball8)
+        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball9)
+        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball10)
+        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball11)
+        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball12)
+        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball13)
+        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball14)
+        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball15)
+        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball16)
+        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball17)
+        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball18)
+        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball19)
+        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball20)
+
+//        val render = Render(this)
+//        render.setAnimation(Zoom().InUp(ball1))
+//        render.start()
 
         // 길이를 세로 모드로 고정
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-
-
     }
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
@@ -129,11 +163,6 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
         y = event?.values?.get(1) as Float
         z = event?.values?.get(2) as Float
 
-//        //
-//        x_text.text = "X: " + x.toInt().toString()
-//        y_text.text = "Y: " + y.toInt().toString()
-//        z_text.text = "Z: " + z.toInt().toString()
-
         accelLast = accelCurrent
 
         accelCurrent = sqrt((x * x + y * y + z * z).toDouble()).toFloat()
@@ -145,6 +174,13 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
         if (accel > 8){
             Log.d(TAG, "MainActivity - 흔들었음")
             Log.d(TAG, "MainActivity - accel : ${accel}")
+
+            if (tomatoVisibleList.size != 0) {
+                var removed = tomatoVisibleList.get(tomatoVisibleList.size-1)
+                tomatoVisibleList.removeAt(tomatoVisibleList.size-1)
+                removed.visibility = View.GONE
+                getNumTextView.text = "" + tomatoVisibleList.size + " / 20"
+            }
         }
 
         val x_g = event.values[0]
@@ -172,24 +208,21 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
                         if (count == 3) {
                             cancel()
                             Log.d(TAG, "토마토 차감")
-                            // 토마토 차감 코드 추가
-                        }
+
+                            runOnUiThread {
+                                if (tomatoVisibleList.size != 0) {
+                                    var removed = tomatoVisibleList.get(tomatoVisibleList.size-1)
+                                    tomatoVisibleList.removeAt(tomatoVisibleList.size-1)
+                                    YoYo.with(Techniques.ZoomOutUp).duration(800).playOn(ball1) // 안 됨
+                                    removed.visibility = View.GONE
+                                    getNumTextView.text = "" + tomatoVisibleList.size + " / 20"
+                                }
+                            }
                     }
                 }
             }
         }
-
-//        runBlocking {
-//            CoroutineScope(Dispatchers.IO).launch {
-//                if (moved > 8) {
-//                    Log.d(TAG, "x_g ${x_g}, z_g ${z_g}")
-//                    Log.d(TAG, "기울었음 ${moved}")
-//                    delay(3000)
-//                    Log.d(TAG, "3초 지남 ${moved}")
-//                    Log.d(TAG, "A 실행 중 ")
-//                }
-//            }
-//        }
+    }
     }
 
     fun checkSensorChanged(event: SensorEvent?) {
@@ -208,6 +241,12 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
         if (accel > 8){
             Log.d(TAG, "MainActivity - 흔들었음")
             Log.d(TAG, "MainActivity - accel : ${accel}")
+
+            if (tomatoVisibleList.size != 0) {
+                var removed = tomatoVisibleList.get(tomatoVisibleList.size - 1)
+                tomatoVisibleList.removeAt(tomatoVisibleList.size - 1)
+                removed.visibility = View.GONE
+            }
         }
 
         val x_g = event.values[0]
@@ -217,18 +256,12 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
     }
 
     override fun onResume() {
-
-//        Log.d(TAG, "MainActivity - onResume() called")
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL)
-        // sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY), SensorManager.SENSOR_DELAY_NORMAL)
         super.onResume()
     }
 
     override fun onPause() {
-
-//        Log.d(TAG, "MainActivity - onPause() called")
         sensorManager.unregisterListener(this)
-
         super.onPause()
     }
 }

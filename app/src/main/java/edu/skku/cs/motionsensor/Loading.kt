@@ -59,11 +59,12 @@ class Loading : AppCompatActivity(), SensorEventListener {
         YoYo.with(Techniques.BounceInUp).duration(3000).repeat(50).playOn(loadingTextView)
 
         //소켓 접속
-        var mSocket: Socket = IO.socket("http://192.249.18.153:443")
-        mSocket.connect()
+        var mSocket = SocketHandler.getSocket()
+
+        //mSocket.connect()
 
         // 서버가 앱에게 시작 사인 주는 걸 받는 코드, 사인 받으면 게임 진행 액티비티로 전환
-        mSocket.on("startgame", Emitter.Listener { args ->
+        mSocket.on("startGame", Emitter.Listener { args ->
             runOnUiThread {
                 Log.d("start", "start")
                 val intent = Intent(this, PlayGame::class.java)
