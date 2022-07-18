@@ -28,6 +28,8 @@ import io.socket.emitter.Emitter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.json.JSONObject
+import java.lang.Exception
 import kotlin.concurrent.timer
 import kotlin.math.sqrt
 
@@ -49,7 +51,7 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
     var z: Float = 0.0f
     var delta: Float = 0.0f
     var moved: Float = 0.0f
-    lateinit var tomatoVisibleList: ArrayList<ImageView>
+    var tomatoVisibleList = ArrayList<ImageView>()
     var sortList = ArrayList<Int>()
     lateinit var mSocket: Socket
 
@@ -66,27 +68,7 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play_game)
-
-        sortList.add(0)
-        sortList.add(0)
-        sortList.add(0)
-        sortList.add(0)
-        sortList.add(0)
-        sortList.add(0)
-        sortList.add(0)
-        sortList.add(0)
-        sortList.add(0)
-        sortList.add(0)
-        sortList.add(0)
-        sortList.add(0)
-        sortList.add(0)
-        sortList.add(0)
-        sortList.add(0)
-        sortList.add(0)
-        sortList.add(0)
-        sortList.add(0)
-        sortList.add(0)
-        sortList.add(0)
+        getNumTextView.text = Integer.valueOf(0).toString()
 
         val tomatoList = arrayListOf<ImageView>(
             findViewById<ImageView>(R.id.ball1),
@@ -108,55 +90,68 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
             findViewById<ImageView>(R.id.ball17),
             findViewById<ImageView>(R.id.ball18),
             findViewById<ImageView>(R.id.ball19),
-            findViewById<ImageView>(R.id.ball20),
-            )
+            findViewById<ImageView>(R.id.ball20))
 
         tomatoVisibleList = arrayListOf<ImageView>()
+        sortList = ArrayList<Int>()
 
         fun Int.dpToPx(displayMetrics: DisplayMetrics): Int = (this * displayMetrics.density).toInt()
         fun Int.pxToDp(displayMetrics: DisplayMetrics): Int = (this / displayMetrics.density).toInt()
 
         mSocket = SocketHandler.getSocket()
 
-        var new = tomatoList.get(tomatoVisibleList.size)
-        tomatoVisibleList.add(new)
-        new.visibility = View.VISIBLE
-        getNumTextView.text = "" + tomatoVisibleList.size
+        mSocket.on("endGame", Emitter.Listener { args ->
+            Log.d("endGame", "응답")
 
-        var new2 = tomatoList.get(tomatoVisibleList.size)
-        tomatoVisibleList.add(new2)
-        new2.visibility = View.VISIBLE
-        getNumTextView.text = "" + tomatoVisibleList.size
+            Log.d("endGame", "" + args)
+        })
 
-        var new3 = tomatoList.get(tomatoVisibleList.size)
-        tomatoVisibleList.add(new3)
-        new3.visibility = View.VISIBLE
-        getNumTextView.text = "" + tomatoVisibleList.size
+        mSocket.on("timeBroadcast", Emitter.Listener { args ->
+            Log.d("endGame", "timeBroadcast")
 
+            val data = args[0] as JSONObject
+            val intent = Intent(this, Result::class.java)
+            intent.putExtra("hr", data.getString("hr"))
+            intent.putExtra("min", data.getString("min"))
+            intent.putExtra("sec", data.getString("sec"))
+            startActivity(intent)
+        })
 
-
-        // get tomato socket
-        // tomato 종류 구분 코드
+            // tomato 종류 구분 코드
         mSocket.on("getTomato", Emitter.Listener { args ->
+            Log.d("endGame", "getTomato")
+
             runOnUiThread {
                 Log.d("getTomato", "" + args)
-                var new = tomatoList.get(tomatoVisibleList.size)
-                tomatoVisibleList.add(new)
-                sortList.add(0)
+
+                lateinit var new : ImageView
+                try {
+                    new = tomatoList.get(tomatoVisibleList.size)
+                    tomatoVisibleList.add(new)
+                } catch (e: Exception) {
+
+                }
+                //sortList.add(0)
 
                 if (args.get(0) == 1) {
                     //new.setImageResource()
                     sortList.add(1)
                     getOldNumTextView.text = (getOldNumTextView.text.toString().toInt() + 1).toString();
+                } else {
+                    sortList.add(0)
                 }
 
-                new.visibility = View.VISIBLE
+                new?.visibility = View.VISIBLE
                 getNumTextView.text = "" + tomatoVisibleList.size
+                progressBar.incrementProgressBy(5)
 
                 // 스무개 모으면 게임 끝
-                if (getNumTextView.text.toString().toInt() == 15) {
+                if (sortList.size == 20) {
                     Log.d("endGame", "endGame")
+                    Log.d("endGame", "20개")
+
                     mSocket.emit("endGame", "endGame")
+                    // 종료 액티비티로 전환
                 }
             }
         })
@@ -191,11 +186,15 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
     }
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+        Log.d("endGame", "onAccuracyChanged")
+
         Log.d(TAG, "MainActivity - onAccuracyChanged() called")
 
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
+        Log.d("endGame", "onSensorChanged")
+
         //     Log.d(TAG, "MainActivity - onSensorChanged() called")
 
         x = event?.values?.get(0) as Float
@@ -217,15 +216,19 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
             if (tomatoVisibleList.size != 0) {
                 var sort = sortList.get(tomatoVisibleList.size-1)
                 var removed = tomatoVisibleList.get(tomatoVisibleList.size-1)
+                sortList.removeAt(tomatoVisibleList.size-1)
                 tomatoVisibleList.removeAt(tomatoVisibleList.size-1)
                 removed.visibility = View.GONE
 
+                Log.d("endGame", tomatoVisibleList.size.toString())
                 if (sort == 0) {
                     getNumTextView.text = "" + tomatoVisibleList.size
                 } else {
                     getNumTextView.text = "" + tomatoVisibleList.size
                     getOldNumTextView.text = (getOldNumTextView.text.toString().toInt() - 1).toString()
                 }
+
+                progressBar.incrementProgressBy(-5)
             }
         }
 
@@ -256,9 +259,12 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
                             Log.d(TAG, "토마토 차감")
 
                             runOnUiThread {
+                                Log.d("endGame", "timer")
+
                                 if (tomatoVisibleList.size != 0) {
                                     var removed = tomatoVisibleList.get(tomatoVisibleList.size-1)
                                     tomatoVisibleList.removeAt(tomatoVisibleList.size-1)
+                                    sortList.removeAt(tomatoVisibleList.size-1)
                                     YoYo.with(Techniques.ZoomOutUp).duration(800).playOn(ball1) // 안 됨
                                     removed.visibility = View.GONE
                                     getNumTextView.text = "" + tomatoVisibleList.size
@@ -288,9 +294,13 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
             Log.d(TAG, "MainActivity - 흔들었음")
             Log.d(TAG, "MainActivity - accel : ${accel}")
 
+            Log.d("endGame", "checkSensorChanged")
+
+
             if (tomatoVisibleList.size != 0) {
                 var sort = sortList.get(tomatoVisibleList.size - 1)
                 var removed = tomatoVisibleList.get(tomatoVisibleList.size - 1)
+                sortList.removeAt(tomatoVisibleList.size-1)
                 tomatoVisibleList.removeAt(tomatoVisibleList.size - 1)
                 removed.visibility = View.GONE
 
@@ -311,11 +321,15 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
     }
 
     override fun onResume() {
+        Log.d("endGame", "onResume")
+
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL)
         super.onResume()
     }
 
     override fun onPause() {
+        Log.d("endGame", "onPause")
+
         sensorManager.unregisterListener(this)
         super.onPause()
     }

@@ -39,5 +39,17 @@
         android:text="click"/>
 
 
+    <TextView
+        android:id="@+id/loadingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:gravity="center_vertical"
+        android:text="Loading"
+        android:textColor="@color/black"
+        android:textSize="40dp" />
+
+
 
 </FrameLayout>

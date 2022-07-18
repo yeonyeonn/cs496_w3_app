@@ -24,6 +24,7 @@ import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_loading.*
 import org.json.JSONObject
+import java.lang.Exception
 import java.util.*
 import kotlin.random.Random
 import kotlin.random.Random.Default.nextInt
@@ -32,6 +33,7 @@ class Loading : AppCompatActivity(), SensorEventListener {
 
     // 각 액티비티 이름을 딴 binding이 있다
     private lateinit var binding: ActivityLoadingBinding
+    private lateinit var mSocket: Socket
 
     private lateinit var sensorManager: SensorManager
     private var accelerometerSensor: Sensor? = null
@@ -59,7 +61,13 @@ class Loading : AppCompatActivity(), SensorEventListener {
         YoYo.with(Techniques.BounceInUp).duration(3000).repeat(50).playOn(loadingTextView)
 
         //소켓 접속
-        var mSocket = SocketHandler.getSocket()
+        try {
+            mSocket = SocketHandler.getSocket()
+        } catch (e: Exception) {
+            SocketHandler.setSocket()
+            SocketHandler.establishConnection()
+            mSocket = SocketHandler.getSocket()
+        }
 
         //mSocket.connect()
 
@@ -88,8 +96,6 @@ class Loading : AppCompatActivity(), SensorEventListener {
                 Log.d("data", "data")
             }
         })
-
-
     }
 
     private fun initSensorManager() {
