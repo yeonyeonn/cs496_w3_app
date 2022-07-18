@@ -21,6 +21,10 @@ import kotlinx.coroutines.Dispatchers.IO
 import render.animations.*
 import io.socket.client.IO
 import io.socket.client.Socket
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlin.concurrent.timer
 import kotlin.math.sqrt
 
 class PlayGame : AppCompatActivity(), SensorEventListener {
@@ -36,6 +40,12 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
     private var accelLast: Float = 0.0f
     var num : Int = 0
     var movestatus = false
+    var x: Float = 0.0f
+    var y: Float = 0.0f
+    var z: Float = 0.0f
+    var delta: Float = 0.0f
+    var moved: Float = 0.0f
+
 //    lateinit var ball1: ImageView
 //    lateinit var ball2: ImageView
 //    lateinit var ball3: ImageView
@@ -115,9 +125,9 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
     override fun onSensorChanged(event: SensorEvent?) {
         //     Log.d(TAG, "MainActivity - onSensorChanged() called")
 
-        val x: Float = event?.values?.get(0) as Float
-        val y: Float = event?.values?.get(1) as Float
-        val z: Float = event?.values?.get(2) as Float
+        x = event?.values?.get(0) as Float
+        y = event?.values?.get(1) as Float
+        z = event?.values?.get(2) as Float
 
 //        //
 //        x_text.text = "X: " + x.toInt().toString()
@@ -128,7 +138,7 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
 
         accelCurrent = sqrt((x * x + y * y + z * z).toDouble()).toFloat()
 
-        val delta: Float = accelCurrent - accelLast
+        delta = accelCurrent - accelLast
 
         accel = accel * 0.9f + delta
 
@@ -140,8 +150,34 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
         val x_g = event.values[0]
         val z_g = event.values[2]
 
+       moved = sqrt((x * x + z * z).toDouble()).toFloat()
 
-        val moved = sqrt((x * x + z * z).toDouble()).toFloat()
+        var count = 0;
+        if (moved > 8 && num == 0) {
+            num = 1
+            Log.d(TAG, "기울었음")
+            runBlocking {
+                launch {
+                    timer(period = 1000, initialDelay = 1000) {
+                        count += 1
+                        checkSensorChanged(event)
+                        Log.d(TAG, "count" + count + " moved" + moved)
+
+                        if (moved <= 8) {
+                            cancel()
+                            Log.d(TAG, "타이머 종료" + "moved " + moved + "count " + count )
+                            num = 0
+                        }
+
+                        if (count == 3) {
+                            cancel()
+                            Log.d(TAG, "토마토 차감")
+                            // 토마토 차감 코드 추가
+                        }
+                    }
+                }
+            }
+        }
 
 //        runBlocking {
 //            CoroutineScope(Dispatchers.IO).launch {
@@ -154,6 +190,30 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
 //                }
 //            }
 //        }
+    }
+
+    fun checkSensorChanged(event: SensorEvent?) {
+        x = event?.values?.get(0) as Float
+        y = event?.values?.get(1) as Float
+        z = event?.values?.get(2) as Float
+
+        accelLast = accelCurrent
+
+        accelCurrent = sqrt((x * x + y * y + z * z).toDouble()).toFloat()
+
+        delta = accelCurrent - accelLast
+
+        accel = accel * 0.9f + delta
+
+        if (accel > 8){
+            Log.d(TAG, "MainActivity - 흔들었음")
+            Log.d(TAG, "MainActivity - accel : ${accel}")
+        }
+
+        val x_g = event.values[0]
+        val z_g = event.values[2]
+
+        moved = sqrt((x * x + z * z).toDouble()).toFloat()
     }
 
     override fun onResume() {
