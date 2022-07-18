@@ -58,36 +58,35 @@ class Loading : AppCompatActivity(), SensorEventListener {
         var loadingTextView = findViewById<TextView>(R.id.loadingTextView)
         YoYo.with(Techniques.BounceInUp).duration(3000).repeat(50).playOn(loadingTextView)
 
+        //소켓 접속
+        var mSocket: Socket = IO.socket("http://192.249.18.153:443")
+        mSocket.connect()
 
-        // 소켓 접속
-//        var mSocket: Socket = IO.socket("http://192.249.18.153:443")
-//        mSocket.connect()
-//
-//        // 서버가 앱에게 시작 사인 주는 걸 받는 코드, 사인 받으면 게임 진행 액티비티로 전환
-//        mSocket.on("startgame", Emitter.Listener { args ->
-//            runOnUiThread {
-//                Log.d("start", "start")
-//                val intent = Intent(this, PlayGame::class.java)
-//                startActivity(intent)
-//            }
-//        })
+        // 서버가 앱에게 시작 사인 주는 걸 받는 코드, 사인 받으면 게임 진행 액티비티로 전환
+        mSocket.on("startgame", Emitter.Listener { args ->
+            runOnUiThread {
+                Log.d("start", "start")
+                val intent = Intent(this, PlayGame::class.java)
+                startActivity(intent)
+            }
+        })
 
    var clickButton = findViewById<Button>(R.id.clickButton)
         clickButton.setOnClickListener {
             val intent = Intent(this, PlayGame::class.java)
             startActivity(intent)
       }
-//
-//        mSocket.emit("message", "hello")
-//        Log.d("here", "here")
-//
-//        mSocket.on("message", Emitter.Listener { args ->
-//            runOnUiThread {
-//                Log.d("data", ""+ args[0])
-//                val data = args[0]
-//                Log.d("data", "data")
-//            }
-//        })
+
+        mSocket.emit("message", "hello")
+        Log.d("here", "here")
+
+        mSocket.on("message", Emitter.Listener { args ->
+            runOnUiThread {
+                Log.d("data", ""+ args[0])
+                val data = args[0]
+                Log.d("data", "data")
+            }
+        })
 
 
     }
