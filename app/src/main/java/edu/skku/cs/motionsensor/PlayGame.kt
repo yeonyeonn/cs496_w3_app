@@ -50,6 +50,8 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
     var delta: Float = 0.0f
     var moved: Float = 0.0f
     lateinit var tomatoVisibleList: ArrayList<ImageView>
+    var sortList = ArrayList<Int>()
+    lateinit var mSocket: Socket
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +66,27 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play_game)
+
+        sortList.add(0)
+        sortList.add(0)
+        sortList.add(0)
+        sortList.add(0)
+        sortList.add(0)
+        sortList.add(0)
+        sortList.add(0)
+        sortList.add(0)
+        sortList.add(0)
+        sortList.add(0)
+        sortList.add(0)
+        sortList.add(0)
+        sortList.add(0)
+        sortList.add(0)
+        sortList.add(0)
+        sortList.add(0)
+        sortList.add(0)
+        sortList.add(0)
+        sortList.add(0)
+        sortList.add(0)
 
         val tomatoList = arrayListOf<ImageView>(
             findViewById<ImageView>(R.id.ball1),
@@ -86,7 +109,6 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
             findViewById<ImageView>(R.id.ball18),
             findViewById<ImageView>(R.id.ball19),
             findViewById<ImageView>(R.id.ball20),
-
             )
 
         tomatoVisibleList = arrayListOf<ImageView>()
@@ -94,31 +116,48 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
         fun Int.dpToPx(displayMetrics: DisplayMetrics): Int = (this * displayMetrics.density).toInt()
         fun Int.pxToDp(displayMetrics: DisplayMetrics): Int = (this / displayMetrics.density).toInt()
 
-        var mSocket = SocketHandler.getSocket()
+        mSocket = SocketHandler.getSocket()
 
         var new = tomatoList.get(tomatoVisibleList.size)
         tomatoVisibleList.add(new)
         new.visibility = View.VISIBLE
-        getNumTextView.text = "" + tomatoVisibleList.size + " / 20"
+        getNumTextView.text = "" + tomatoVisibleList.size
 
         var new2 = tomatoList.get(tomatoVisibleList.size)
         tomatoVisibleList.add(new2)
         new2.visibility = View.VISIBLE
-        getNumTextView.text = "" + tomatoVisibleList.size + " / 20"
+        getNumTextView.text = "" + tomatoVisibleList.size
 
         var new3 = tomatoList.get(tomatoVisibleList.size)
         tomatoVisibleList.add(new3)
         new3.visibility = View.VISIBLE
-        getNumTextView.text = "" + tomatoVisibleList.size + " / 20"
+        getNumTextView.text = "" + tomatoVisibleList.size
+
+
 
         // get tomato socket
+        // tomato 종류 구분 코드
         mSocket.on("getTomato", Emitter.Listener { args ->
             runOnUiThread {
                 Log.d("getTomato", "" + args)
                 var new = tomatoList.get(tomatoVisibleList.size)
                 tomatoVisibleList.add(new)
+                sortList.add(0)
+
+                if (args.get(0) == 1) {
+                    //new.setImageResource()
+                    sortList.add(1)
+                    getOldNumTextView.text = (getOldNumTextView.text.toString().toInt() + 1).toString();
+                }
+
                 new.visibility = View.VISIBLE
-                getNumTextView.text = "" + tomatoVisibleList.size + " / 20"
+                getNumTextView.text = "" + tomatoVisibleList.size
+
+                // 스무개 모으면 게임 끝
+                if (getNumTextView.text.toString().toInt() == 15) {
+                    Log.d("endGame", "endGame")
+                    mSocket.emit("endGame", "endGame")
+                }
             }
         })
 
@@ -176,10 +215,17 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
             Log.d(TAG, "MainActivity - accel : ${accel}")
 
             if (tomatoVisibleList.size != 0) {
+                var sort = sortList.get(tomatoVisibleList.size-1)
                 var removed = tomatoVisibleList.get(tomatoVisibleList.size-1)
                 tomatoVisibleList.removeAt(tomatoVisibleList.size-1)
                 removed.visibility = View.GONE
-                getNumTextView.text = "" + tomatoVisibleList.size + " / 20"
+
+                if (sort == 0) {
+                    getNumTextView.text = "" + tomatoVisibleList.size
+                } else {
+                    getNumTextView.text = "" + tomatoVisibleList.size
+                    getOldNumTextView.text = (getOldNumTextView.text.toString().toInt() - 1).toString()
+                }
             }
         }
 
@@ -215,7 +261,7 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
                                     tomatoVisibleList.removeAt(tomatoVisibleList.size-1)
                                     YoYo.with(Techniques.ZoomOutUp).duration(800).playOn(ball1) // 안 됨
                                     removed.visibility = View.GONE
-                                    getNumTextView.text = "" + tomatoVisibleList.size + " / 20"
+                                    getNumTextView.text = "" + tomatoVisibleList.size
                                 }
                             }
                     }
@@ -243,9 +289,18 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
             Log.d(TAG, "MainActivity - accel : ${accel}")
 
             if (tomatoVisibleList.size != 0) {
+                var sort = sortList.get(tomatoVisibleList.size - 1)
                 var removed = tomatoVisibleList.get(tomatoVisibleList.size - 1)
                 tomatoVisibleList.removeAt(tomatoVisibleList.size - 1)
                 removed.visibility = View.GONE
+
+                if (sort == 0) {
+                    getNumTextView.text = "" + tomatoVisibleList.size + " / 20"
+                } else {
+                    getNumTextView.text = "" + tomatoVisibleList.size + " / 20"
+                    getOldNumTextView.text =
+                        (getOldNumTextView.text.toString().toInt() - 1).toString()
+                }
             }
         }
 

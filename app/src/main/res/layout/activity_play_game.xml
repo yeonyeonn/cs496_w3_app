@@ -9,19 +9,48 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
 
         <TextView
             android:id="@+id/getNumTextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
-            android:layout_marginTop="30dp"
-            android:text="0 / 20"
+            android:layout_marginTop="20dp"
+            android:text="0"
             android:textSize="40sp"
             android:textColor="@color/black"
             android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:text=" / 20"
+            android:textSize="40sp"
+            android:textColor="@color/black"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/getOldNumTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:text="0"
+            android:textSize="20sp"
+            android:textColor="@color/black" />
 
     </LinearLayout>
 
@@ -125,14 +154,14 @@
         android:src="@drawable/ball2" />
 
     <ImageView
-        android:visibility="invisible"
         android:id="@+id/ball11"
         android:layout_width="91dp"
         android:layout_height="91dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="5dp"
         android:layout_marginBottom="232dp"
-        android:src="@drawable/ball1" />
+        android:src="@drawable/ball1"
+        android:visibility="invisible" />
 
     <ImageView
         android:visibility="invisible"
@@ -194,14 +223,14 @@
         android:src="@drawable/ball1" />
 
     <ImageView
-        android:visibility="invisible"
         android:id="@+id/ball20"
         android:layout_width="91dp"
         android:layout_height="91dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="205dp"
         android:layout_marginBottom="415dp"
-        android:src="@drawable/ball3" />
+        android:src="@drawable/ball3"
+        android:visibility="invisible" />
 
     <ImageView
         android:visibility="invisible"
