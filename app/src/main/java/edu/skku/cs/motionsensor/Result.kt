@@ -33,7 +33,7 @@ class Result : AppCompatActivity() {
 
         var time = "0"+ hour + " : 0" + min + " : " + sec
 
-        //timeTextView.text = time
+        timeTextView.text = time
         scoreTextView1.text = good.toString()
         scoreTextView2.text = bad.toString()
         totalTextView.text = total.toString()

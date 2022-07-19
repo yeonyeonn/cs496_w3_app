@@ -23,7 +23,7 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/tomato_red"/>
+                android:src="@drawable/tomatored"/>
 
             <TextView
                 android:id="@+id/getNumTextView"
@@ -42,7 +42,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="30dp"
-                android:src="@drawable/tomato_yellow"/>
+                android:src="@drawable/tomatoyellow"/>
 
             <TextView
                 android:id="@+id/getOldTextView"
@@ -80,15 +80,16 @@
                 android:gravity="center"
                 android:background="@drawable/round_textview"
                 android:layout_marginStart="120dp"
-                android:layout_marginEnd="100dp"
+                android:layout_marginEnd="55dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:layout_weight="4">
+                android:layout_weight="3">
 
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:text="총 "
                 android:fontFamily="@font/dfdiary"
                 android:textColor="@color/black"
@@ -99,7 +100,7 @@
             android:id="@+id/totalTextView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginTop="1dp"
+            android:layout_marginTop="2dp"
             android:text="0"
             android:fontFamily="@font/dfdiary"
             android:textColor="@color/black"
@@ -110,6 +111,7 @@
                     android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:layout_marginStart="3dp"
                     android:text="개"
                     android:fontFamily="@font/dfdiary"
@@ -123,6 +125,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/handright"
+                    android:layout_marginEnd="5dp"/>
+
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
@@ -148,7 +157,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:progressTint="#E69AFF25"
+            android:progressTint="#F37F76"
             android:max="100"
             android:progress="0" />
 
@@ -156,200 +165,216 @@
 
 
     <ImageView
-        android:visibility="invisible"
         android:id="@+id/ball1"
-        android:layout_width="91dp"
-        android:layout_height="91dp"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="0dp"
-        android:src="@drawable/ball1" />
+        android:rotation="@integer/material_motion_duration_long_2"
+        android:src="@drawable/tomatored"
+        android:visibility="invisible" />
 
     <ImageView
-        android:visibility="invisible"
         android:id="@+id/ball3"
-        android:layout_width="91dp"
-        android:layout_height="91dp"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="86dp"
+        android:layout_marginLeft="80dp"
         android:layout_marginBottom="30dp"
-        android:src="@drawable/ball2" />
+        android:rotation="@integer/material_motion_duration_medium_1"
+        android:src="@drawable/tomatored"
+        android:visibility="invisible" />
 
     <ImageView
-        android:visibility="invisible"
         android:id="@+id/ball2"
-        android:layout_width="91dp"
-        android:layout_height="91dp"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="172dp"
-        android:src="@drawable/ball3"
-        android:layout_alignParentBottom="true"/>
+        android:rotation="@integer/material_motion_duration_short_1"
+        android:src="@drawable/tomatored"
+        android:visibility="invisible" />
 
     <ImageView
-        android:visibility="invisible"
         android:id="@+id/ball4"
-        android:layout_width="91dp"
-        android:layout_height="91dp"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="270dp"
         android:layout_marginBottom="0dp"
-        android:src="@drawable/ball1" />
+        android:rotation="@integer/material_motion_duration_medium_2"
+        android:src="@drawable/tomatored"
+        android:visibility="invisible"/>
 
     <ImageView
-        android:visibility="invisible"
         android:id="@+id/ball5"
         android:layout_width="91dp"
         android:layout_height="91dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="7dp"
         android:layout_marginBottom="90dp"
-        android:src="@drawable/ball3" />
+        android:rotation="@integer/material_motion_duration_long_1"
+        android:src="@drawable/tomatored"
+        android:visibility="invisible" />
 
     <ImageView
-        android:visibility="invisible"
         android:id="@+id/ball6"
-        android:layout_width="91dp"
-        android:layout_height="91dp"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="220dp"
-        android:layout_marginBottom="75dp"
-        android:src="@drawable/ball2" />
+        android:layout_marginBottom="65dp"
+        android:rotation="@integer/material_motion_duration_short_2"
+        android:src="@drawable/tomatored"
+        android:visibility="invisible" />
 
     <ImageView
-        android:visibility="invisible"
         android:id="@+id/ball7"
         android:layout_width="91dp"
         android:layout_height="91dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="135dp"
-        android:layout_marginBottom="105dp"
-        android:src="@drawable/ball2" />
-
-    <ImageView
-        android:visibility="invisible"
-        android:id="@+id/ball8"
-        android:layout_width="91dp"
-        android:layout_height="91dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="68dp"
-        android:layout_marginBottom="167dp"
-        android:src="@drawable/ball1" />
-
-    <ImageView
-        android:visibility="invisible"
-        android:id="@+id/ball9"
-        android:layout_width="91dp"
-        android:layout_height="91dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="272dp"
-        android:layout_marginBottom="147dp"
-        android:src="@drawable/ball3" />
-
-    <ImageView
-        android:visibility="invisible"
-        android:id="@+id/ball10"
-        android:layout_width="91dp"
-        android:layout_height="91dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="188dp"
-        android:layout_marginBottom="176dp"
-        android:src="@drawable/ball2" />
-
-    <ImageView
-        android:id="@+id/ball11"
-        android:layout_width="91dp"
-        android:layout_height="91dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="5dp"
-        android:layout_marginBottom="232dp"
-        android:src="@drawable/ball1"
+        android:layout_marginLeft="140dp"
+        android:layout_marginBottom="120dp"
+        android:src="@drawable/tomatored"
         android:visibility="invisible" />
 
     <ImageView
-        android:visibility="invisible"
+        android:id="@+id/ball8"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="55dp"
+        android:layout_marginBottom="150dp"
+        android:rotation="@integer/material_motion_duration_medium_2"
+        android:src="@drawable/tomatored"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/ball9"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="272dp"
+        android:layout_marginBottom="147dp"
+        android:src="@drawable/tomatored"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/ball10"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="195dp"
+        android:layout_marginBottom="178dp"
+        android:rotation="@integer/material_motion_duration_short_1"
+        android:src="@drawable/tomatored"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/ball11"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="220dp"
+        android:rotation="@integer/material_motion_duration_short_2"
+        android:src="@drawable/tomatored"
+        android:visibility="invisible" />
+
+    <ImageView
         android:id="@+id/ball12"
         android:layout_width="91dp"
         android:layout_height="91dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="125dp"
-        android:layout_marginBottom="240dp"
-        android:src="@drawable/ball2" />
+        android:layout_marginLeft="115dp"
+        android:layout_marginBottom="230dp"
+        android:rotation="@integer/material_motion_duration_medium_2"
+        android:src="@drawable/tomatored"
+        android:visibility="invisible" />
 
     <ImageView
-        android:visibility="invisible"
         android:id="@+id/ball13"
-        android:layout_width="91dp"
-        android:layout_height="91dp"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="258dp"
-        android:layout_marginBottom="235dp"
-        android:src="@drawable/ball1" />
+        android:layout_marginBottom="240dp"
+        android:rotation="@integer/material_motion_duration_short_1"
+        android:src="@drawable/tomatored"
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/ball14"
-        android:layout_width="91dp"
-        android:layout_height="91dp"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="63dp"
-        android:layout_marginBottom="305dp"
-        android:src="@drawable/ball3"
+        android:layout_marginLeft="65dp"
+        android:layout_marginBottom="300dp"
+        android:src="@drawable/tomatored"
         android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/ball15"
-        android:layout_width="91dp"
-        android:layout_height="91dp"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="370dp"
-        android:src="@drawable/ball3"
+        android:layout_marginBottom="360dp"
+        android:rotation="@integer/material_motion_duration_medium_2"
+        android:src="@drawable/tomatored"
         android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/ball16"
-        android:layout_width="91dp"
-        android:layout_height="91dp"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="193dp"
-        android:layout_marginBottom="300dp"
-        android:src="@drawable/ball2"
+        android:layout_marginLeft="185dp"
+        android:layout_marginBottom="290dp"
+        android:rotation="@integer/material_motion_duration_medium_1"
+        android:src="@drawable/tomatored"
         android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/ball17"
-        android:layout_width="91dp"
-        android:layout_height="91dp"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="130dp"
-        android:layout_marginBottom="367dp"
-        android:src="@drawable/ball1"
+        android:layout_marginBottom="360dp"
+        android:rotation="@integer/material_motion_duration_short_1"
+        android:src="@drawable/tomatored"
         android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/ball20"
-        android:layout_width="91dp"
-        android:layout_height="91dp"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="205dp"
         android:layout_marginBottom="415dp"
-        android:src="@drawable/ball3"
+        android:rotation="@integer/material_motion_duration_long_1"
+        android:src="@drawable/tomatored"
         android:visibility="invisible" />
 
     <ImageView
-        android:visibility="invisible"
         android:id="@+id/ball19"
         android:layout_width="91dp"
         android:layout_height="91dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="65dp"
-        android:layout_marginBottom="430dp"
-        android:src="@drawable/ball3" />
+        android:layout_marginLeft="70dp"
+        android:layout_marginBottom="428dp"
+        android:rotation="@integer/material_motion_duration_medium_1"
+        android:src="@drawable/tomatored"
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/ball18"
-        android:layout_width="91dp"
-        android:layout_height="91dp"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="265dp"
         android:layout_marginBottom="350dp"
-        android:src="@drawable/ball3"
+        android:src="@drawable/tomatored"
         android:visibility="invisible" />
 
 

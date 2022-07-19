@@ -17,7 +17,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="80dp"
             android:layout_marginStart="90dp"
-            android:src="@drawable/tomato_red"/>
+            android:src="@drawable/tomatored"/>
 
         <TextView
             android:id="@+id/loadingTextView"
@@ -40,32 +40,32 @@
             android:layout_height="50dp"
             android:layout_marginTop="160dp"
             android:layout_marginStart="300dp"
-            android:src="@drawable/tomato_yellow"/>
+            android:src="@drawable/tomatoyellow"/>
 
 
         <ImageView
             android:id="@+id/toma3"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="350dp"
+            android:layout_marginTop="270dp"
             android:layout_marginStart="20dp"
-            android:src="@drawable/tomato_green"/>
+            android:src="@drawable/tomatodead"/>
 
         <ImageView
             android:id="@+id/toma4"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="470dp"
+            android:layout_marginTop="450dp"
             android:layout_marginStart="300dp"
-            android:src="@drawable/tomato_red2"/>
+            android:src="@drawable/tomatored"/>
 
         <ImageView
             android:id="@+id/toma5"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="570dp"
+            android:layout_marginTop="550dp"
             android:layout_marginStart="100dp"
-            android:src="@drawable/tomato_yellow2"/>
+            android:src="@drawable/tomatoyellow"/>
 
     </FrameLayout>
 

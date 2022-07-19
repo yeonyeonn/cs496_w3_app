@@ -3,28 +3,17 @@ package edu.skku.cs.motionsensor
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.pm.ActivityInfo
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
-import androidx.appcompat.app.AppCompatActivity
+import android.media.MediaPlayer
+import android.media.SoundPool
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
-import com.android.volley.Request
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.RequestQueue
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import io.socket.client.IO
@@ -34,7 +23,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_play_game.*
 import render.animations.*
 import java.net.URISyntaxException
-import kotlin.math.sqrt
 
 var pw = ""
 class MainActivity : AppCompatActivity() {
@@ -43,6 +31,11 @@ class MainActivity : AppCompatActivity() {
     companion object{
         var requestQueue: RequestQueue? = null
     }
+    val soundPoll = SoundPool.Builder().build()
+    var getItem : Int = 0
+    var end : Int = 0
+    var warning : Int = 0
+    var wrong : Int = 0
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +44,9 @@ class MainActivity : AppCompatActivity() {
 
         fun Int.dpToPx(displayMetrics: DisplayMetrics): Int = (this * displayMetrics.density).toInt()
         fun Int.pxToDp(displayMetrics: DisplayMetrics): Int = (this / displayMetrics.density).toInt()
+
+        YoYo.with(Techniques.FadeIn).duration(2000).playOn(titleTV)
+
 
         val button = findViewById<Button>(R.id.button)
 
@@ -126,8 +122,16 @@ class MainActivity : AppCompatActivity() {
 
 
         button.setOnClickListener {
+
             var pin = edit1.text.toString() + edit2.text.toString() + edit3.text.toString() + edit4.text.toString()
             Log.d("clicked", pin)
+
+            if (pin.toString().length != 4) {
+                YoYo.with(Techniques.Shake).duration(1000).playOn(edit1)
+                YoYo.with(Techniques.Shake).duration(1000).playOn(edit2)
+                YoYo.with(Techniques.Shake).duration(1000).playOn(edit3)
+                YoYo.with(Techniques.Shake).duration(1000).playOn(edit4)
+            }
 
             SocketHandler.setSocket()
             SocketHandler.establishConnection()
@@ -162,6 +166,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
 
 object SocketHandler {
     lateinit var mainSocket: Socket

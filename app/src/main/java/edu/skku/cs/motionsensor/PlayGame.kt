@@ -8,30 +8,27 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import androidx.appcompat.app.AppCompatActivity
+import android.media.MediaPlayer
+import android.media.SoundPool
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_play_game.*
-import kotlinx.coroutines.Dispatchers.IO
-import render.animations.*
-import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_play_game.*
 import kotlinx.android.synthetic.main.activity_play_game.totalTextView
 import kotlinx.android.synthetic.main.activity_result.*
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
-import java.lang.Exception
+import render.animations.*
+import java.util.*
 import kotlin.concurrent.timer
 import kotlin.math.sqrt
 
@@ -55,6 +52,12 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
     var moved: Float = 0.0f
     var tomatoVisibleList = ArrayList<ImageView>()
     var sortList = ArrayList<Int>()
+    val getItem = MediaPlayer.create(this, R.raw.get)
+    var end = MediaPlayer.create(this, R.raw.end)
+    var warning = MediaPlayer.create(this, R.raw.warning)
+    var wrong = MediaPlayer.create(this, R.raw.wrong)
+    var ran : Float = 0.0f
+
     lateinit var mSocket: Socket
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -104,7 +107,6 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
 
         mSocket.on("endGame", Emitter.Listener { args ->
             Log.d("endGame", "응답")
-
             Log.d("endGame", "" + args)
         })
 
@@ -134,7 +136,6 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
             startActivity(intent)
         })
 
-            // tomato 종류 구분 코드
         mSocket.on("getTomato", Emitter.Listener { args ->
             Log.d("endGame", "getTomato")
 
@@ -151,49 +152,64 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
                 //sortList.add(0)
 
                 if (args.get(0) == 1) {
-                    //new.setImageResource()
+                    wrong.start()
+                    new.setImageResource(R.drawable.tomatoyellow)
+                    ran = Random().nextFloat() * Int.MAX_VALUE % 360
+                    new.rotation = ran
                     sortList.add(1)
                     getOldTextView.text = (getOldTextView.text.toString().toInt() + 1).toString();
                 } else {
+                    getItem.start()
                     sortList.add(0)
                 }
 
+                ran = Random().nextFloat() * Int.MAX_VALUE % 360
+                new.rotation = ran
                 new?.visibility = View.VISIBLE
+                YoYo.with(Techniques.ZoomInUp).duration(800).playOn(new)
+                //new?.animate().translationY(4 * new.height.toFloat()).setInterpolator(BounceInterpolator()).setDuration(1000)
                 getNumTextView.text = "" + (tomatoVisibleList.size - getOldTextView.text.toString().toInt())
                 totalTextView.text = "" + tomatoVisibleList.size
                 progressBar.incrementProgressBy(5)
 
                 // 스무개 모으면 게임 끝
                 if (sortList.size == 20) {
-                    Log.d("endGame", "endGame")
                     Log.d("endGame", "20개")
 
                     mSocket.emit("endGame", "endGame")
                     // 종료 액티비티로 전환
                 }
             }
+
+            val jsonObject = JSONObject()
+            var good_sv = (getNumTextView.text.toString().toInt() - getOldTextView.text.toString().toInt()).toString()
+            var bad_sv = getOldTextView.text.toString()
+
+            jsonObject.put("good", good_sv)
+            jsonObject.put("bad", bad_sv)
+            mSocket.emit("countTomato", jsonObject)
         })
 
-        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball1)
-        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball2)
-        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball3)
-        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball4)
-        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball5)
-        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball6)
-        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball7)
-        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball8)
-        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball9)
-        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball10)
-        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball11)
-        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball12)
-        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball13)
-        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball14)
-        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball15)
-        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball16)
-        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball17)
-        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball18)
-        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball19)
-        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball20)
+//        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball1)
+//        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball2)
+//        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball3)
+//        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball4)
+//        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball5)
+//        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball6)
+//        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball7)
+//        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball8)
+//        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball9)
+//        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball10)
+//        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball11)
+//        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball12)
+//        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball13)
+//        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball14)
+//        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball15)
+//        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball16)
+//        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball17)
+//        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball18)
+//        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball19)
+//        YoYo.with(Techniques.ZoomInUp).duration(800).playOn(ball20)
 
 //        val render = Render(this)
 //        render.setAnimation(Zoom().InUp(ball1))
@@ -211,7 +227,6 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
-        Log.d("endGame", "onSensorChanged")
 
         //     Log.d(TAG, "MainActivity - onSensorChanged() called")
 
@@ -236,7 +251,8 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
                 var removed = tomatoVisibleList.get(tomatoVisibleList.size-1)
                 sortList.removeAt(tomatoVisibleList.size-1)
                 tomatoVisibleList.removeAt(tomatoVisibleList.size-1)
-                YoYo.with(Techniques.ZoomOutUp).duration(800).playOn(ball1)
+                YoYo.with(Techniques.ZoomOutUp).duration(800).playOn(removed)
+                //removed?.animate().translationY(-4 * removed.height.toFloat()).setInterpolator(BounceInterpolator()).setDuration(1000)
                 removed.visibility = View.GONE
 
                 Log.d("endGame", tomatoVisibleList.size.toString())
@@ -246,6 +262,15 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
                     getOldTextView.text = (getOldTextView.text.toString().toInt() - 1).toString()
                 }
 
+                wrong.start()
+
+                val jsonObject = JSONObject()
+                var good_sv = (getNumTextView.text.toString().toInt() - getOldTextView.text.toString().toInt()).toString()
+                var bad_sv = getOldTextView.text.toString()
+
+                jsonObject.put("good", good_sv)
+                jsonObject.put("bad", bad_sv)
+                mSocket.emit("countTomato", jsonObject)
                 totalTextView.text = "" + tomatoVisibleList.size
                 progressBar.incrementProgressBy(-5)
             }
@@ -258,6 +283,7 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
 
         var count = 0;
         if (moved > 8 && num == 0) {
+            warning.start()
             num = 1
             Log.d(TAG, "기울었음")
             runBlocking {
@@ -267,14 +293,17 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
                         checkSensorChanged(event)
                         Log.d(TAG, "count" + count + " moved" + moved)
 
+                        wrong.start()
                         if (moved <= 8) {
                             cancel()
-                            Log.d(TAG, "타이머 종료" + "moved " + moved + "count " + count )
+                            warning.stop()
                             num = 0
                         }
 
                         if (count == 3) {
                             cancel()
+                            warning.stop()
+
                             Log.d(TAG, "토마토 차감")
 
                             runOnUiThread {
@@ -285,7 +314,9 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
                                     var removed = tomatoVisibleList.get(tomatoVisibleList.size-1)
                                     tomatoVisibleList.removeAt(tomatoVisibleList.size-1)
                                     sortList.removeAt(tomatoVisibleList.size-1)
-                                    YoYo.with(Techniques.ZoomOutUp).duration(800).playOn(ball1) // 안 됨
+                                    //YoYo.with(Techniques.ZoomOutUp).duration(800).playOn(ball1) // 안 됨
+                                    YoYo.with(Techniques.ZoomOutUp).duration(800).playOn(removed)
+                                    //removed?.animate().translationY(-4 * removed.height.toFloat()).setInterpolator(BounceInterpolator()).setDuration(1000)
                                     removed.visibility = View.GONE
 
                                     if (sort == 0) {
@@ -294,6 +325,13 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
                                         getOldTextView.text = (getOldTextView.text.toString().toInt() - 1).toString()
                                     }
 
+                                    val jsonObject = JSONObject()
+                                    var good_sv = (getNumTextView.text.toString().toInt() - getOldTextView.text.toString().toInt()).toString()
+                                    var bad_sv = getOldTextView.text.toString()
+
+                                    jsonObject.put("good", good_sv)
+                                    jsonObject.put("bad", bad_sv)
+                                    mSocket.emit("countTomato", jsonObject)
                                     totalTextView.text = "" + tomatoVisibleList.size
                                     progressBar.incrementProgressBy(-5)
                                 }
@@ -326,11 +364,16 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
 
 
             if (tomatoVisibleList.size != 0) {
+
+                wrong.start()
+
                 var sort = sortList.get(tomatoVisibleList.size - 1)
                 var removed = tomatoVisibleList.get(tomatoVisibleList.size - 1)
                 sortList.removeAt(tomatoVisibleList.size-1)
                 tomatoVisibleList.removeAt(tomatoVisibleList.size - 1)
-                YoYo.with(Techniques.ZoomOutUp).duration(800).playOn(ball1)
+                YoYo.with(Techniques.ZoomOutUp).duration(800).playOn(removed)
+                //removed?.animate().translationY(-4 * removed.height.toFloat()).setInterpolator(BounceInterpolator()).setDuration(1000)
+
                 removed.visibility = View.GONE
 
                 if (sort == 0) {
@@ -339,6 +382,13 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
                     getOldTextView.text = (getOldTextView.text.toString().toInt() - 1).toString()
                 }
 
+                val jsonObject = JSONObject()
+                var good_sv = (getNumTextView.text.toString().toInt() - getOldTextView.text.toString().toInt()).toString()
+                var bad_sv = getOldTextView.text.toString()
+
+                jsonObject.put("good", good_sv)
+                jsonObject.put("bad", bad_sv)
+                mSocket.emit("countTomato", jsonObject)
                 totalTextView.text = "" + tomatoVisibleList.size
                 progressBar.incrementProgressBy(-5)
             }

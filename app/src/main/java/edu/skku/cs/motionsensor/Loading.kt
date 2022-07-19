@@ -40,12 +40,9 @@ class Loading : AppCompatActivity(), SensorEventListener {
 
     private val fallingModels: MutableList<TomatoModel> = mutableListOf()
     private val randomImageRes = listOf(
-        R.drawable.tomato_green,
-        R.drawable.tomato_red,
-        R.drawable.tomato_yellow,
-        R.drawable.tomato_yellow2,
-        R.drawable.tomato_red2,
-        R.drawable.tomato_green2,
+        R.drawable.tomatoyellow,
+        R.drawable.tomatored,
+        R.drawable.tomatodead
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

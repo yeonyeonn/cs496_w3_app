@@ -33,7 +33,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginBottom="10dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/tomato_yellow"
+        android:src="@drawable/tomatored"
         />
 
     </FrameLayout>
@@ -98,7 +98,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/tomato_red"/>
+            android:src="@drawable/tomatored"/>
 
         <TextView
             android:id="@+id/scoreTextView1"
@@ -117,7 +117,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="30dp"
-            android:src="@drawable/tomato_green2"/>
+            android:src="@drawable/tomatoyellow"/>
 
         <TextView
             android:id="@+id/scoreTextView2"
