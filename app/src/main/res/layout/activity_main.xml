@@ -7,12 +7,35 @@
     tools:context=".PlayGame"
     android:orientation="vertical">
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="130dp"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="토마토마토"
+        android:letterSpacing="0.2"
+        android:fontFamily="@font/dfdiary"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="40sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="250dp"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:text="4자리 코드 입력"
+        android:background="@drawable/round_textview"
+        android:fontFamily="@font/dfdiary"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"/>
@@ -62,16 +85,22 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#00ff0000"
+        android:textColor="@color/black"
         android:text="click"
-        android:layout_marginTop="50dp"
+        android:fontFamily="@font/dfdiary"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center"/>
 
     <Button
         android:id="@+id/fastButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#00ff0000"
+        android:textColor="#CAC3C3"
+        android:fontFamily="@font/dfdiary"
         android:text="fast"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="5dp"
         android:layout_gravity="center"/>
 
 </LinearLayout>

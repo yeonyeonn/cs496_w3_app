@@ -117,7 +117,6 @@ class Loading : AppCompatActivity(), SensorEventListener {
                 MotionEvent.ACTION_DOWN -> {
                     val touchedX = event.x
                     val touchedY = event.y
-                    Log.d("좌표", "" +touchedX + " " + touchedY)
                     addTomatoView(touchedX, touchedY)
                     true
                 }
