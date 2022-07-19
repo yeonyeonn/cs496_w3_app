@@ -7,35 +7,179 @@
     android:orientation="vertical"
     tools:context=".Result">
 
+    <TextView
+        android:id="@+id/TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/black"
+        android:textSize="45sp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:fontFamily="@font/dfdiary"
+        android:text="게임 끝"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circleImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/tomato_yellow"
+        />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center">
 
     <TextView
-        android:id="@+id/hourTextView"
-        android:layout_width="match_parent"
+        android:id="@+id/TextView2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textAlignment="center"
-        android:text="time"/>
+        android:fontFamily="@font/dfdiary"
+        android:text="내가 모은 토마토"/>
+
+        <TextView
+            android:id="@+id/totalTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:textColor="#FD5F5F"
+            android:textSize="20sp"
+            android:fontFamily="@font/dfdiary"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="14"/>
+
+        <TextView
+            android:id="@+id/TextView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:fontFamily="@font/dfdiary"
+            android:text="개"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:padding="20dp"
+        android:background="@drawable/round_textview"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/tomato_red"/>
+
+        <TextView
+            android:id="@+id/scoreTextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textAlignment="center"
+            android:fontFamily="@font/dfdiary"
+            android:text="11"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="30dp"
+            android:src="@drawable/tomato_green2"/>
+
+        <TextView
+            android:id="@+id/scoreTextView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textAlignment="center"
+            android:fontFamily="@font/dfdiary"
+            android:text="3"/>
+
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/minTextView"
+        android:id="@+id/TextView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textAlignment="center"
-        android:text="time"/>
+        android:fontFamily="@font/dfdiary"
+        android:text="걸린 시간"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:padding="20dp"
+        android:background="@drawable/round_textview"
+        android:layout_gravity="center"
+        android:gravity="center">
 
     <TextView
-        android:id="@+id/secTextView"
-        android:layout_width="match_parent"
+        android:id="@+id/timeTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:textAlignment="center"
-        android:text="time"/>
+        android:fontFamily="@font/dfdiary"
+        android:text="00 : 00 : 58"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:lineSpacingExtra="10dp"
+        android:fontFamily="@font/dfdiary"
+        android:text="게임을 다시 시작하려면\n 웹에서 Restart 버튼을 눌러주세요"/>
 
 </LinearLayout>

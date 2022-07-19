@@ -60,6 +60,12 @@ class Loading : AppCompatActivity(), SensorEventListener {
         var loadingTextView = findViewById<TextView>(R.id.loadingTextView)
         YoYo.with(Techniques.BounceInUp).duration(3000).repeat(50).playOn(loadingTextView)
 
+//        addTomatoView(890.15625f, 252.60938f)
+//        addTomatoView(188.26172f, 514.23047f)
+//        addTomatoView(926.80664f, 1146.5742f)
+//        addTomatoView(159.25781f, 1565.168f)
+//        addTomatoView(868.53516f, 1889.1328f)
+
         //소켓 접속
         try {
             mSocket = SocketHandler.getSocket()
@@ -111,11 +117,18 @@ class Loading : AppCompatActivity(), SensorEventListener {
                 MotionEvent.ACTION_DOWN -> {
                     val touchedX = event.x
                     val touchedY = event.y
+                    Log.d("좌표", "" +touchedX + " " + touchedY)
                     addTomatoView(touchedX, touchedY)
                     true
                 }
                 else -> true
             }
+            fallingModels.add(TomatoModel(toma1))
+            fallingModels.add(TomatoModel(toma2))
+            fallingModels.add(TomatoModel(toma3))
+            fallingModels.add(TomatoModel(toma4))
+            fallingModels.add(TomatoModel(toma5))
+
         }
     }
 

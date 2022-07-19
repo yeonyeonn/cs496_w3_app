@@ -9,25 +9,63 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/toma1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginStart="90dp"
+            android:src="@drawable/tomato_red"/>
 
         <TextView
             android:id="@+id/loadingTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="70dp"
-            android:gravity="center_vertical"
-            android:text="Loading"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:fontFamily="@font/dfdiary"
+            android:text="게임 시작을\n기다리는 중입니다"
+            android:background="@drawable/round_textview"
+            android:lineSpacingExtra="15dp"
+            android:padding="25dp"
             android:textColor="@color/black"
-            android:textSize="40dp" />
+            android:textSize="30dp" />
 
         <ImageView
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
-            android:src="@drawable/bubble"/>
+            android:id="@+id/toma2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="160dp"
+            android:layout_marginStart="300dp"
+            android:src="@drawable/tomato_yellow"/>
+
+
+        <ImageView
+            android:id="@+id/toma3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="350dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/tomato_green"/>
+
+        <ImageView
+            android:id="@+id/toma4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="470dp"
+            android:layout_marginStart="300dp"
+            android:src="@drawable/tomato_red2"/>
+
+        <ImageView
+            android:id="@+id/toma5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="570dp"
+            android:layout_marginStart="100dp"
+            android:src="@drawable/tomato_yellow2"/>
 
     </FrameLayout>
 
@@ -35,21 +73,11 @@
         android:id="@+id/clickButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
         android:layout_gravity="center"
+        android:background="#00ff0000"
+        android:textColor="#CAC3C3"
         android:text="click"/>
-
-
-    <TextView
-        android:id="@+id/loadingTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:gravity="center_vertical"
-        android:text="Loading"
-        android:textColor="@color/black"
-        android:textSize="40dp" />
-
 
 
 </FrameLayout>

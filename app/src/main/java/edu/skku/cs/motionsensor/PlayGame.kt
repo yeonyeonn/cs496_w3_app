@@ -25,6 +25,8 @@ import render.animations.*
 import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
+import kotlinx.android.synthetic.main.activity_play_game.totalTextView
+import kotlinx.android.synthetic.main.activity_result.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -114,6 +116,21 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
             intent.putExtra("hr", data.getString("hr"))
             intent.putExtra("min", data.getString("min"))
             intent.putExtra("sec", data.getString("sec"))
+
+            var good: Int = 0
+            var bad: Int = 0
+
+            for (i in sortList) {
+                Log.d("sortList", ""+i)
+                if (i == 0) {
+                    good += 1
+                } else {
+                    bad += 1
+                }
+            }
+
+            intent.putExtra("good", good)
+            intent.putExtra("bad", bad)
             startActivity(intent)
         })
 
@@ -136,13 +153,14 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
                 if (args.get(0) == 1) {
                     //new.setImageResource()
                     sortList.add(1)
-                    getOldNumTextView.text = (getOldNumTextView.text.toString().toInt() + 1).toString();
+                    getOldTextView.text = (getOldTextView.text.toString().toInt() + 1).toString();
                 } else {
                     sortList.add(0)
                 }
 
                 new?.visibility = View.VISIBLE
-                getNumTextView.text = "" + tomatoVisibleList.size
+                getNumTextView.text = "" + (tomatoVisibleList.size - getOldTextView.text.toString().toInt())
+                totalTextView.text = "" + tomatoVisibleList.size
                 progressBar.incrementProgressBy(5)
 
                 // 스무개 모으면 게임 끝
@@ -218,16 +236,17 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
                 var removed = tomatoVisibleList.get(tomatoVisibleList.size-1)
                 sortList.removeAt(tomatoVisibleList.size-1)
                 tomatoVisibleList.removeAt(tomatoVisibleList.size-1)
+                YoYo.with(Techniques.ZoomOutUp).duration(800).playOn(ball1)
                 removed.visibility = View.GONE
 
                 Log.d("endGame", tomatoVisibleList.size.toString())
                 if (sort == 0) {
-                    getNumTextView.text = "" + tomatoVisibleList.size
+                    getNumTextView.text = (getNumTextView.text.toString().toInt() - 1).toString()
                 } else {
-                    getNumTextView.text = "" + tomatoVisibleList.size
-                    getOldNumTextView.text = (getOldNumTextView.text.toString().toInt() - 1).toString()
+                    getOldTextView.text = (getOldTextView.text.toString().toInt() - 1).toString()
                 }
 
+                totalTextView.text = "" + tomatoVisibleList.size
                 progressBar.incrementProgressBy(-5)
             }
         }
@@ -262,12 +281,21 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
                                 Log.d("endGame", "timer")
 
                                 if (tomatoVisibleList.size != 0) {
+                                    var sort = sortList.get(tomatoVisibleList.size-1)
                                     var removed = tomatoVisibleList.get(tomatoVisibleList.size-1)
                                     tomatoVisibleList.removeAt(tomatoVisibleList.size-1)
                                     sortList.removeAt(tomatoVisibleList.size-1)
                                     YoYo.with(Techniques.ZoomOutUp).duration(800).playOn(ball1) // 안 됨
                                     removed.visibility = View.GONE
-                                    getNumTextView.text = "" + tomatoVisibleList.size
+
+                                    if (sort == 0) {
+                                        getNumTextView.text = (getNumTextView.text.toString().toInt() - 1).toString()
+                                    } else {
+                                        getOldTextView.text = (getOldTextView.text.toString().toInt() - 1).toString()
+                                    }
+
+                                    totalTextView.text = "" + tomatoVisibleList.size
+                                    progressBar.incrementProgressBy(-5)
                                 }
                             }
                     }
@@ -302,15 +330,17 @@ class PlayGame : AppCompatActivity(), SensorEventListener {
                 var removed = tomatoVisibleList.get(tomatoVisibleList.size - 1)
                 sortList.removeAt(tomatoVisibleList.size-1)
                 tomatoVisibleList.removeAt(tomatoVisibleList.size - 1)
+                YoYo.with(Techniques.ZoomOutUp).duration(800).playOn(ball1)
                 removed.visibility = View.GONE
 
                 if (sort == 0) {
-                    getNumTextView.text = "" + tomatoVisibleList.size + " / 20"
+                    getNumTextView.text = (getNumTextView.text.toString().toInt() - 1).toString()
                 } else {
-                    getNumTextView.text = "" + tomatoVisibleList.size + " / 20"
-                    getOldNumTextView.text =
-                        (getOldNumTextView.text.toString().toInt() - 1).toString()
+                    getOldTextView.text = (getOldTextView.text.toString().toInt() - 1).toString()
                 }
+
+                totalTextView.text = "" + tomatoVisibleList.size
+                progressBar.incrementProgressBy(-5)
             }
         }
 

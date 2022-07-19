@@ -21,9 +21,22 @@ class Result : AppCompatActivity() {
 
         var intent = intent
 
-        hourTextView.text = intent.getStringExtra("hr")
-        minTextView.text = intent.getStringExtra("min")
-        secTextView.text = intent.getStringExtra("sec")
+        var hour = intent.getStringExtra("hr")
+        var min = intent.getStringExtra("min")
+        var sec = intent.getStringExtra("sec")
+        var good = intent.getIntExtra("good", 0)
+        var bad = intent.getIntExtra("bad", 0)
+        var total = good + bad
+
+        Log.d("sortList good", ""+good)
+        Log.d("sortList bad", ""+bad)
+
+        var time = "0"+ hour + " : 0" + min + " : " + sec
+
+        //timeTextView.text = time
+        scoreTextView1.text = good.toString()
+        scoreTextView2.text = bad.toString()
+        totalTextView.text = total.toString()
 
         mSocket.on("restart", Emitter.Listener { args ->
             Log.d("restart", "restart")
